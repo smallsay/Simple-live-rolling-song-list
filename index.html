@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动歌单</title>
+    <style>
+        .mask_div {
+            width: 400px;
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+        }
+        .roll_list {
+            position: absolute;
+            top: 0px;
+            transform: scale(0.9,1);
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="mask_div">
+        <div class="roll_list">
+            <div class="part1"></div>
+            <div class="part2"></div>
+        </div>
+    </div>
+    
+
+    <script src="cfg.json"></script>
+    <script>
+
+
+        
+        var roll_list = document.querySelector('.roll_list');
+        var part1 = document.querySelector('.part1');
+        var mask_div = document.querySelector('.mask_div');
+
+        roll_list.style.color = my_font_color;
+        roll_list.style.fontSize = my_font_size + 'px';
+        mask_div.style.width = list_width + 'px';
+        mask_div.style.height = list_height + 'px';
+        
+
+        var temp_array = [];
+        for (var i = 0 ; i < music_list.length ; ++i) {
+            temp_array[i] = "" + (i + 1) + '.  ' + music_list[i] + ' </br> ';      
+        }
+        roll_list.children[0].innerHTML = temp_array.join('');
+        roll_list.children[1].innerHTML = temp_array.join('');
+        var timer = setInterval(function(){
+            roll_list.style.top = roll_list.offsetTop - rolling_speed + 'px';
+            if ( -1 * roll_list.offsetTop > part1.offsetHeight) {
+                roll_list.style.top = 0 + 'px';
+            }
+        },rolling_timer)
+    </script>
+</body>
+</html>
